@@ -8,6 +8,12 @@ export interface imageObject {
   };
 }
 
+export interface returnData {
+  data: {
+    results: imageObject[];
+  };
+}
+
 export type submitData = {
   field: '';
 };

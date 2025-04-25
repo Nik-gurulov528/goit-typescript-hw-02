@@ -8,7 +8,7 @@ import { PropagateLoader } from 'react-spinners';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
-import { imageObject, submitData } from './types';
+import { imageObject, returnData, submitData } from './types';
 
 function App() {
   const [images, setImages] = useState<Array<imageObject>>([]);
@@ -28,7 +28,7 @@ function App() {
       setImages([]);
       setIsError(false);
       setIsLoading(true);
-      const listOfData = await fetchData(values.field, 1);
+      const listOfData: returnData = await fetchData(values.field, 1);
       setImages(listOfData.data.results);
       setTopic(values.field);
     } catch (error) {
@@ -43,7 +43,7 @@ function App() {
     try {
       setIsError(false);
       setIsLoading(true);
-      const listOfData = await fetchData(topic, numPage + 1);
+      const listOfData: returnData = await fetchData(topic, numPage + 1);
       setImages(prevImages => {
         return [...prevImages, ...listOfData.data.results];
       });
