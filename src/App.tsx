@@ -2,23 +2,23 @@ import './App.css';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import SearchBar from './components/SearchBar/SearchBar';
 import fetchData from './js/fetchData';
-import { useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { PropagateLoader } from 'react-spinners';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
-import ReactModal from 'react-modal';
+import { imageObject, submitData } from './types';
 
 function App() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [topic, setTopic] = useState('');
-  const [numPage, setNumPage] = useState();
-  const [currentImg, setCurrentImg] = useState({});
+  const [images, setImages] = useState<Array<imageObject>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [topic, setTopic] = useState<string>('');
+  const [numPage, setNumPage] = useState<number>(0);
+  const [currentImg, setCurrentImg] = useState<Partial<imageObject>>({});
 
-  async function handleSubmit(values, actions) {
+  async function handleSubmit(values: submitData) {
     if (values.field.trim() === '') {
       toast.error('There must be something!');
       return;
@@ -36,7 +36,6 @@ function App() {
       console.log(error);
     } finally {
       setIsLoading(false);
-      actions.resetForm();
     }
   }
 
@@ -56,8 +55,13 @@ function App() {
     }
   }
 
-  function handleBigger(id) {
-    setCurrentImg(() => images.find(item => item.id === id));
+  function handleBigger(id: string) {
+    const chooseImg: imageObject | undefined = images.find(
+      item => item.id === id
+    );
+    if (chooseImg) {
+      setCurrentImg(chooseImg);
+    }
   }
 
   return (

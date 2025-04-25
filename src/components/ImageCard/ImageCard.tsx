@@ -1,6 +1,11 @@
 import css from './ImageCard.module.css';
 
-export default function ImageCard({ srcImg, altImg }) {
+type Props = {
+  srcImg: string;
+  altImg: string;
+};
+
+export default function ImageCard({ srcImg, altImg }: Props) {
   return (
     <div className={css.wrapperImg}>
       <img src={srcImg} alt={altImg} />

@@ -1,8 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import css from './SearchBar.module.css';
 import { IoMdSearch } from 'react-icons/io';
+import { submitData } from '../../types';
 
-export default function SearchBar({ handleSubmit }) {
+type Props = {
+  handleSubmit: (values: submitData) => Promise<void>;
+};
+
+export default function SearchBar({ handleSubmit }: Props) {
   return (
     <header className={css.topHeader}>
       <Formik initialValues={{ field: '' }} onSubmit={handleSubmit}>

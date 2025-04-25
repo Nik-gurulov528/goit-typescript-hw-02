@@ -1,10 +1,16 @@
 import css from './ImageGallery.module.css';
 import ImageCard from '../ImageCard/ImageCard';
+import { imageObject } from '../../types';
 
-export default function ImageGallery({ list, handleClick }) {
+type Props = {
+  list: Array<imageObject>;
+  handleClick: (id: string) => void;
+};
+
+export default function ImageGallery({ list, handleClick }: Props) {
   return (
     <ul className={css.collectionOfImages}>
-      {list.map(item => {
+      {list.map((item: imageObject) => {
         return (
           <li
             key={item.id}

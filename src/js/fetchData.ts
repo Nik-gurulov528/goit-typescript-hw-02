@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-export default async function fetchData(topicOfPhoto, numberOfPages) {
+export default async function fetchData(
+  topicOfPhoto: string,
+  numberOfPages: number
+) {
   axios.defaults.baseURL = 'https://api.unsplash.com/';
   const optionsData = {
     params: {
